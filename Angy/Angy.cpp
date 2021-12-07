@@ -11,6 +11,7 @@
 
 #include "stdafx.h"
 #include "Angy.h"
+#include "FlowerGenerator.h"
 
 Angy::Angy(UINT width, UINT height, std::wstring name) :
     DXSample(width, height, name),
@@ -231,15 +232,20 @@ void Angy::LoadAssets()
 
     // Create the vertex buffer.
     {
-        // Define the geometry for a triangle.
-        Vertex triangleVertices[] =
-        {
-            { { 0.0f, 0.25f * m_aspectRatio, 0.0f }, { 0.5f, 0.0f } },
-            { { 0.25f, -0.25f * m_aspectRatio, 0.0f }, { 1.0f, 1.0f } },
-            { { -0.25f, -0.25f * m_aspectRatio, 0.0f }, { 0.0f, 1.0f } }
-        };
-
-        const UINT vertexBufferSize = sizeof(triangleVertices);
+        using namespace angy;
+        FlowerGenerator flowerGenerator;
+        Flower flower = flowerGenerator.GetFlower();
+        float* flowerFloats = new float[flower.GetNumFloatsForBuffer()];
+        Vertex* flowerVertices = new Vertex[flower.GetNumVertices()];
+        
+        flower.GetVertices(flowerFloats);
+        for (unsigned i = 0; i < flower.GetNumVertices(); ++i) {
+           flowerVertices[i] = { 
+               {flowerFloats[i*5], flowerFloats[i*5+1] * m_aspectRatio, flowerFloats[i*5+2]}, 
+               {flowerFloats[i*5+3], flowerFloats[i*5+4]} 
+           };
+        }
+         const UINT vertexBufferSize = sizeof(Vertex)* flower.GetNumVertices();
 
         // Note: using upload heaps to transfer static data like vert buffers is not 
         // recommended. Every time the GPU needs it, the upload heap will be marshalled 
@@ -257,7 +263,7 @@ void Angy::LoadAssets()
         UINT8* pVertexDataBegin;
         CD3DX12_RANGE readRange(0, 0);        // We do not intend to read from this resource on the CPU.
         ThrowIfFailed(m_vertexBuffer->Map(0, &readRange, reinterpret_cast<void**>(&pVertexDataBegin)));
-        memcpy(pVertexDataBegin, triangleVertices, sizeof(triangleVertices));
+        memcpy(pVertexDataBegin, flowerVertices, vertexBufferSize);
         m_vertexBuffer->Unmap(0, nullptr);
 
         // Initialize the vertex buffer view.

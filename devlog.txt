@@ -1,0 +1,2 @@
+6 Dec 2021
+- using the Graphics samples instead of working with the hiccups of the MiniEngine to allow for faster iteration, will build up features using the engine as a reference and consider porting over

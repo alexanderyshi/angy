@@ -112,6 +112,8 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Flower.h" />
+    <ClInclude Include="FlowerGenerator.h" />
     <ClInclude Include="Win32Application.h" />
     <ClInclude Include="Angy.h" />
     <ClInclude Include="d3dx12.h" />
@@ -120,6 +122,8 @@
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="FlowerGenerator.cpp" />
+    <ClCompile Include="Flower.cpp" />
     <ClCompile Include="Win32Application.cpp" />
     <ClCompile Include="Angy.cpp" />
     <ClCompile Include="DXSample.cpp" />

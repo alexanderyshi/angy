@@ -1,2 +1,0 @@
-^C:\USERS\ALEX\SOURCE\REPOS\ANGY\ANGY\SHADERS.HLSL
-copy shaders.hlsl "bin\x64\Debug\" > NUL

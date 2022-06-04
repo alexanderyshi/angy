@@ -270,6 +270,10 @@ void Angy::LoadAssets()
         m_vertexBufferView.BufferLocation = m_vertexBuffer->GetGPUVirtualAddress();
         m_vertexBufferView.StrideInBytes = sizeof(Vertex);
         m_vertexBufferView.SizeInBytes = vertexBufferSize;
+
+        // cleanup allocated memory
+        delete[] flowerFloats;
+        delete[] flowerVertices;
     }
 
     // Note: ComPtr's are CPU objects but this resource needs to stay in scope until

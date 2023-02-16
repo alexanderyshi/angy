@@ -14,3 +14,6 @@
 
 10 Oct 2022
 ✓ set up tasklist format
+
+15 Feb 2023
+✓ remove Microsoft DirectX sample code in favour of setting up a cross platform Vulkan project
